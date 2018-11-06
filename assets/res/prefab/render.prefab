@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "render",
+    "_name": "render2",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -58,7 +58,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 521,
+      "width": 510,
       "height": 110
     },
     "_anchorPoint": {
@@ -69,7 +69,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 293,
+      "y": 73,
       "z": 0
     },
     "_scale": {
@@ -95,7 +95,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "bg",
+    "_name": "rendBg",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -121,7 +121,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 521,
+      "width": 510,
       "height": 110
     },
     "_anchorPoint": {
@@ -169,7 +169,7 @@
     "_spriteFrame": {
       "__uuid__": "369175d3-57b7-449c-bfdc-e8eb241d162f"
     },
-    "_type": 0,
+    "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -236,7 +236,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -212,
-      "y": 1,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -296,7 +296,7 @@
     "asset": {
       "__uuid__": "46421936-3ec3-4a7f-a887-07be74109020"
     },
-    "fileId": "ceqUCGwsFJWYVRT/jOuoVI",
+    "fileId": "5611YlLR9H7KkGvfgctKkr",
     "sync": false
   },
   {
@@ -709,7 +709,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
+      "__uuid__": "45ec3ec2-41a5-42df-aa63-347a01ef54aa"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -723,7 +723,9 @@
     "_fillRange": 0,
     "_isTrimmedMode": true,
     "_state": 0,
-    "_atlas": null,
+    "_atlas": {
+      "__uuid__": "b45f230a-2af7-4864-9250-9b70c10beb47"
+    },
     "_id": ""
   },
   {
@@ -734,28 +736,17 @@
       "__id__": 1
     },
     "_enabled": true,
-    "spriteFrameF": {
-      "__uuid__": "45ec3ec2-41a5-42df-aa63-347a01ef54aa"
-    },
-    "spriteFrameS": {
-      "__uuid__": "158549f8-138f-4d48-9b1f-2935ad89629d"
-    },
-    "spriteFrameT": {
-      "__uuid__": "bdf63a7b-5dab-48ce-990e-751adddd36ae"
-    },
-    "bg": {
+    "rendBg": {
       "__id__": 3
     },
     "rankTxt": {
       "__id__": 9
     },
-    "rankImg": {
-      "__id__": 6
-    },
+    "rankImg": null,
     "icon": {
       "__id__": 18
     },
-    "nameTxt": {
+    "nameText": {
       "__id__": 12
     },
     "scoreTxt": {

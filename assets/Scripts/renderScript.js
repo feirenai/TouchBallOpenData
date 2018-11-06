@@ -27,17 +27,8 @@ cc.Class({
         //         this._bar = value;
         //     }
         // },
-        //第一名的图片资源
-        spriteFrameF:cc.SpriteFrame,
-
-        //第二名的图片资源
-        spriteFrameS:cc.SpriteFrame,
-
-        //第三名的图片资源
-        spriteFrameT:cc.SpriteFrame,
-
         //背景图片
-        bg: cc.Sprite,
+        rendBg: cc.Sprite,
         //名次文本
         rankTxt: cc.Label,
         //名次图片
@@ -45,7 +36,7 @@ cc.Class({
         //头像框
         icon: cc.Sprite,
         //名字文本
-        nameTxt: cc.Label,
+        nameText: cc.Label,
         //积分文本
         scoreTxt: cc.Label,
 
@@ -60,28 +51,17 @@ cc.Class({
 
     },
 
-    setData:function(data,index){
+    setData(data,index){
         if (this.rankImg) {
-            this.rankImg.node.active = index < 3;
-        }
-
-        if(index == 1)
-        {   //第一名
-            this.rankImg.spriteFrame = this.spriteFrameF
-        }else if(index == 2)
-        {   //第二名
-            this.rankImg.spriteFrame = this.spriteFrameS
-        }else if(index == 3){
-            //第三名
-            this.rankImg.spriteFrame = this.spriteFrameT
+            this.rankImg.node.active = false;
         }
 
         //设置背景的可见
-        this.bg.active = index % 2 == 0;
+        this.rendBg.active = index % 2 == 0;
 
         //设置排名文本
         this.rankTxt.string =  (index + 1);
-        this.rankTxt.string = index < 3 ? "" : this.rankTxt.string;
+        //this.rankTxt.string = index < 3 ? "" : this.rankTxt.string;
 
         //获取积分
         var _score = 0;
@@ -99,7 +79,7 @@ cc.Class({
     },
 
     //创建一个头像图片
-    createImg:function(sprite,url){
+    createImage(sprite,url){
         let image = wx.createImage();
         image.onload = function () {
             let texture = new cc.Texture2D();

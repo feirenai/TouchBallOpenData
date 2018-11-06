@@ -15,36 +15,42 @@ cc.Class({
 
     start () {
 
+        //先设置所有的排名组件为false
+        for(let i = 0; i < this.itemList.length; i++){
+            if(this.itemList[i]){
+                this.itemList[i].active = false;
+            }
+        }
+        
         let _self = this;
         this.display.active = true;
         //每页的个数
         this.num = 6;
         //当前页数
-        this.currPage = 1;
+        this.currPage = 0;
         //总页数
         this.maxPage = 0;
         //监听主域发过来的事件
         wx.onMessage(function(data){
-            console.log("触发事件的监听",data);
             switch(data.type){
                 case "score"://积分数据的改变
-                    this._getUserCloudStorage('score', data.value);
+                    _self._getUserCloudStorage('score', data.value);
                     break;
                 case "friend"://好友排行
-                    this.titleLabel.string = "好友排行榜";
+                    _self.titleLabel.string = "好友排行榜";
                     //设置好友排名数据
-                    this._FriendCloudStorage('score');
+                    _self._FriendCloudStorage('score');
                     break;
                 case "crowd"://群排行
-                    this.titleLabel.string = "群排行榜";
+                    _self.titleLabel.string = "群排行榜";
                     //设置去排行数据
-                    this._GroupCloudStorage('score', data.value);
+                    _self._GroupCloudStorage('score', data.value);
                     break;
                 case "hide"://关闭排行
-                    this.showOrHide(false);
+                    _self.showOrHide(false);
                     break;
                 case "show"://显示排行榜
-                    this.showOrHide(true);
+                    _self.showOrHide(true);
                     break;
             }
         });
@@ -93,7 +99,7 @@ cc.Class({
             //获取数据成功
             success: function(res){
                 //绘制排行列表
-                self.drawRankList(res.data);
+                self.drawRankList(res.KVDataList);
             },
             //获取数据失败
             fail:function(){},
@@ -108,23 +114,28 @@ cc.Class({
             keyList: [key],
             success: function(res){
                 if(res.KVDataList){
-                    for(var i = 0 ; i < res.KVDataList.length; i++)
+                    if(res.KVDataList.length == 0)
                     {
-                        var score = 0;
-                        //如果是积分
-                        if(res.KVDataList[i].key == key)
-                        {
-                            score = res.KVDataList[i].value;
-                        }
-
-                        //如果积分小于历史数据就不做处理
-                        if(score != 0  && score > value)
-                        {
-                            return;
-                        }
-
-                        //更新积分数据
                         self._setUserCloudStorage(key,value);
+                    }else{
+                        for(var i = 0 ; i < res.KVDataList.length; i++)
+                        {
+                            var score = 0;
+                            //如果是积分
+                            if(res.KVDataList[i].key == key)
+                            {
+                                score = res.KVDataList[i].value;
+                            }
+
+                            //如果积分小于历史数据就不做处理
+                            if(score != 0  && score > value)
+                            {
+                                return;
+                            }
+
+                            //更新积分数据
+                            self._setUserCloudStorage(key,value);
+                        }
                     }
                 }
             },
@@ -137,7 +148,8 @@ cc.Class({
     _setUserCloudStorage(key,value){
         wx.setUserCloudStorage({
             KVDataList: [{key:key, value:value+""}],
-            success:function(res){},
+            success:function(res){
+            },
             fail:function(){},
             complete:function(){},
         })
@@ -163,12 +175,11 @@ cc.Class({
 
     //绘制排行面板
     drawRankList(data){
-        console.log("排行榜的数据",data);
         //显示排行面板
         this.display.active = true;
         let list = data.sort(this.compare('KVDataList'));
         //初始化当前页数
-        this.currPage = 1;
+        this.currPage = 0;
         this._list = list;
         this.maxPage = Math.ceil(list.length/this.num);
         //更新排行列表
@@ -181,11 +192,10 @@ cc.Class({
         for(let i = 0; i < this.itemList.length; i++){
             if(this.itemList[i]){
                 this.itemList[i].active = false;
-
                 //设置排名组件的可见性
                 if(i+num < this._list.length){
-                    this.itemList[i].active = true;
                     //设置每个排名组件数据
+                    this.itemList[i].active = true;
                     this.itemList[i].getComponent("renderScript").setData(this._list[i+num], i+num);
                 }
             }
